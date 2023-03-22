@@ -7,5 +7,4 @@ pandas
 scikit-learn
 joblib
 catboost
-urllib
 flask
