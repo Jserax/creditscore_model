@@ -10,37 +10,37 @@ stages:
       md5: a8b6c93a5ecd8ffb4212340d218b7981
       size: 31136044
     - path: load_data.py
-      md5: 22bb73c301621d65c6feffe51a40a655
-      size: 1592
+      md5: c70081cbd4ff1dc744ec2b8921e7f9e7
+      size: 1533
     outs:
     - path: data/processed/test.csv
-      md5: 76c667ddf3a471b6f1a36288c7c61329
-      size: 1036353
+      md5: 68de69836788f912cb0d2acb1591d070
+      size: 945495
     - path: data/processed/train.csv
-      md5: c9410ede2aaa6c4341a0f1deb9f164b9
-      size: 4147956
+      md5: 638d46b269a86a1b5c5ced22c765dfb2
+      size: 3783116
   train_model:
     cmd: python train_model.py --config=params.yaml
     deps:
     - path: data/processed/test.csv
-      md5: 76c667ddf3a471b6f1a36288c7c61329
-      size: 1036353
+      md5: 68de69836788f912cb0d2acb1591d070
+      size: 945495
     - path: data/processed/train.csv
-      md5: c9410ede2aaa6c4341a0f1deb9f164b9
-      size: 4147956
+      md5: 638d46b269a86a1b5c5ced22c765dfb2
+      size: 3783116
     - path: hyperparam_tuning.py
-      md5: 9a574363cf4e06a44af0ffa0697f06a8
-      size: 2368
+      md5: a70f117f2ac443a567f56c4ace84808f
+      size: 1857
     - path: train_model.py
-      md5: f0d386a0cc0414c0603d1ce5deed5521
-      size: 2888
+      md5: 7c43b61db1c1e23293e2e379ae541282
+      size: 2406
     params:
       params.yaml:
-        classifier.depth: 8
-        classifier.iterations: 1027
-        classifier.learning_rate: 0.31172429655289885
+        classifier.depth: 6
+        classifier.iterations: 932
+        classifier.learning_rate: 0.17858503997745498
         hyperparams_tuning: true
     outs:
     - path: models/model.joblib
-      md5: f10a332d890825ca5f05ab64541dd9b6
-      size: 6186471
+      md5: 560972425187b613a94a8fc935b09ebb
+      size: 211512

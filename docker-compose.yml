@@ -2,6 +2,6 @@ services:
   flask:
     build: .
     container_name: flask
-    command: gunicorn --bind 0.0.0.0:5000 run_model:app
+    command: bash -c "cd app/ && gunicorn --bind 0.0.0.0:5000 run_model:app"
     ports:
       - 5000:5000

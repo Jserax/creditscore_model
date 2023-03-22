@@ -7,10 +7,7 @@ import argparse
 import pandas as pd
 from urllib.parse import urlparse
 from catboost import CatBoostClassifier
-from sklearn.pipeline import Pipeline
-from sklearn.compose import ColumnTransformer
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
-from sklearn.metrics import classification_report, f1_score
+from sklearn.metrics import f1_score
 from hyperparam_tuning import find_hyperparam
 
 
@@ -26,8 +23,7 @@ def train_model(config_path):
     classifier_config = config['classifier']
     mlflow_config = config["mlflow_config"]
 
-    num_cols = data_config['num_cols']
-    cat_cols = data_config['cat_cols']
+
     target = data_config['target']
     train_path = data_config['train_csv']
     test_path = data_config['test_csv']
@@ -52,21 +48,17 @@ def train_model(config_path):
                                         depth=depth,
                                         learning_rate=learning_rate,
                                         verbose=False)
-        ct = ColumnTransformer([('one_hot_enc', OneHotEncoder(), cat_cols),
-                                ('standard_scaler', StandardScaler(), num_cols)])
-        pipe = Pipeline([('preprocess', ct),
-                        ('classifier', classifier)])
-        pipe.fit(x_train, y_train)
-        y_pred = pipe.predict(x_test)
+        classifier.fit(x_train, y_train)
+        y_pred = classifier.predict(x_test)
         f1score = f1_score(y_test, y_pred, average='weighted')
         mlflow.log_metric('f1_weighted', f1score)
         tracking_url_type_store = urlparse(mlflow.get_artifact_uri()).scheme
         if tracking_url_type_store != "file":
-            mlflow.sklearn.log_model(pipe, "model",
+            mlflow.sklearn.log_model(classifier, "model",
             registered_model_name=mlflow_config["registered_model_name"])
         else:
-            mlflow.sklearn.log_model(pipe, "model")
-    joblib.dump(pipe, model_dir)
+            mlflow.sklearn.log_model(classifier, "model")
+    joblib.dump(classifier, model_dir)
 
 if __name__ == "__main__":
     args = argparse.ArgumentParser()

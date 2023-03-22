@@ -14,16 +14,15 @@ def read_params(config_path):
 def load_and_transform_data(config_path):
     config = read_params(config_path)
     raw_data = config['data_config']['raw_csv']
-    num_cols = config['data_config']['num_cols']
-    cat_cols = config['data_config']['cat_cols']
+    features = config['data_config']['features']
     target = config['data_config']['target']
     train_path = config['data_config']['train_csv']
     test_path = config['data_config']['test_csv']
     random_state = config['data_config']['random_state']
 
     raw = pd.read_csv(raw_data)
-    raw = raw[num_cols+cat_cols+[target]]
-    for i in num_cols:
+    raw = raw[features+[target]]
+    for i in features:
         if raw[i].dtype != 'int64' and raw[i].dtype != 'float64':
             raw[i] = raw[i].str.replace('_', '')
         raw[i] = raw[i].astype('float')

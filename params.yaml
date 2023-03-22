@@ -1,11 +1,9 @@
 classifier:
-  depth: 8
-  iterations: 1027
-  learning_rate: 0.31172429655289885
+  depth: 6
+  iterations: 932
+  learning_rate: 0.17858503997745498
 data_config:
-  cat_cols:
-  - Occupation
-  num_cols:
+  features:
   - Age
   - Annual_Income
   - Monthly_Inhand_Salary
