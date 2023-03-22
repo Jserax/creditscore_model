@@ -1,9 +1,10 @@
 yaml
 argparse
 numpy
+gunicorn 
+mlflow
 pandas
 scikit-learn
-mlflow
 joblib
 catboost
 urllib

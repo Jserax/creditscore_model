@@ -1,23 +1,33 @@
-data_config: 
-  raw_csv: data/raw/train.csv
-  num_cols: ['Age','Annual_Income', 'Monthly_Inhand_Salary', 'Num_Bank_Accounts', 'Num_Credit_Card', 'Num_of_Loan', 'Interest_Rate', 'Delay_from_due_date', 'Credit_Utilization_Ratio', 'Monthly_Balance', 'Outstanding_Debt']
-  cat_cols: ['Occupation']
-  target: Credit_Score
+classifier:
+  depth: 8
+  iterations: 1027
+  learning_rate: 0.31172429655289885
+data_config:
+  cat_cols:
+  - Occupation
+  num_cols:
+  - Age
+  - Annual_Income
+  - Monthly_Inhand_Salary
+  - Num_Bank_Accounts
+  - Num_Credit_Card
+  - Num_of_Loan
+  - Interest_Rate
+  - Delay_from_due_date
+  - Credit_Utilization_Ratio
+  - Monthly_Balance
+  - Outstanding_Debt
   random_state: 42
-  train_csv: data/processed/train.csv
+  raw_csv: data/raw/train.csv
+  target: Credit_Score
   test_csv: data/processed/test.csv
-
+  train_csv: data/processed/train.csv
+hyperparams_trials: 15
+hyperparams_tuning: true
 mlflow_config:
   artifacts_dir: artifacts
-  experiment_name: model_iteration1
-  run_name: catboost
+  experiment_name: cs_model
   registered_model_name: catboost_model
-  remote_server_uri: http://localhost:4321
-
-classifier:
-  depth: 4
-  learning_rate: 0.01
-  iterations: 500
-
-
-model_dir: models/model.joblib   
+  remote_server_uri: http://localhost:5000
+  run_name: catboost
+model_dir: models/model.joblib

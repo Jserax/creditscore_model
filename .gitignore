@@ -1,2 +1,4 @@
-data/
 catboost_info/
+mlruns/
+data/processed/
+__pycache__

@@ -1,0 +1,25 @@
+stages:
+  load_data:
+    cmd: python load_data.py --config=params.yaml
+    deps:
+    - load_data.py
+    - data/raw/train.csv
+    - data/raw/test.csv
+    outs:
+    - data/processed/train.csv
+    - data/processed/test.csv
+
+  train_model:
+    cmd: python train_model.py --config=params.yaml
+    deps:
+    - hyperparam_tuning.py
+    - train_model.py
+    - data/processed/train.csv
+    - data/processed/test.csv
+    params:
+    - classifier.depth
+    - classifier.iterations
+    - classifier.learning_rate
+    - hyperparams_tuning
+    outs:
+    - models/model.joblib
